@@ -8,7 +8,7 @@ The interactive cells are compiled to WebAssembly with [WasmTarget.jl](https://g
 
 [**Open the live notebook gallery →**](https://grouptherapyorg.github.io/Snapshot.jl/notebooks/)
 
-![The Snapshot.jl documentation homepage and quickstart](https://raw.githubusercontent.com/GroupTherapyOrg/snapshot-assets/main/announcement/snapshot-jl/2026-07/01-gallery.png)
+![The Snapshot.jl documentation homepage and quickstart](https://raw.githubusercontent.com/GroupTherapyOrg/snapshot-assets/main/announcement/snapshot-jl/2026-07/01-gallery-highlighted.png)
 
 ## A small example
 
