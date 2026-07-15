@@ -12,11 +12,11 @@ The interactive cells are compiled to WebAssembly with [WasmTarget.jl](https://g
 
 ## A small example
 
-Snapshot.jl is in a pre-registration community test, so installation currently points at the repository:
+Install Snapshot.jl from the General registry:
 
 ```julia
 import Pkg
-Pkg.add(url="https://github.com/GroupTherapyOrg/Snapshot.jl")
+Pkg.add("Snapshot")
 
 using Snapshot
 
