@@ -82,7 +82,7 @@ This boundary is visible on purpose. The gallery reports how many cells are inte
 
 ## Status and trust boundary
 
-- Snapshot.jl is pre-1.0 and not registered in General yet.
+- Snapshot.jl is pre-1.0 and available from the General registry with `Pkg.add("Snapshot")`.
 - It currently targets Julia 1.12 because it works directly with Julia compiler IR.
 - The package is MIT licensed. WasmTarget.jl is Apache-2.0 licensed.
 - Exporting **executes the notebook** with the permissions of the Julia process. It is not a sandbox; only export notebooks and environments you trust.
