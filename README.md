@@ -8,6 +8,6 @@ Public screenshots and other media used by Snapshot documentation and announceme
 - `announcement/snapshot-jl/2026-07/` — Snapshot.jl package announcement and media
 
 Publication assets are reviewed for emails, tokens, installation identifiers,
-and other private account metadata. One dashboard image intentionally retains
+and other private account metadata. The dashboard images intentionally retain
 the name and `Private` badge of the dedicated private-notebook test repository
 so the restricted-publication path is visible; it does not expose its contents.
