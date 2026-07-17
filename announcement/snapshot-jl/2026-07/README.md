@@ -20,18 +20,18 @@ Pkg.add("Snapshot")
 
 using Snapshot
 
-export_notebook("notebook.jl"; therapy=true)
+export_notebook("notebook.jl")
 ```
 
-This runs the notebook and writes a lean, self-contained Therapy component: server-rendered cell output plus a small WebAssembly island for each reactive group that compiled and passed verification.
+This runs the notebook and writes a lean, static Therapy-format page: cell output rendered to HTML at export time plus a WebAssembly island for each reactive group that compiled and passed verification. Pass `fragment=true` when the same output should also be emitted as an embeddable fragment.
 
 The classic Pluto-style HTML export is also available:
 
 ```julia
-export_notebook("notebook.jl")
+export_notebook("notebook.jl"; therapy=false)
 ```
 
-Both outputs are static files and can be served by an ordinary static host.
+Both outputs are static files and can be served by an ordinary static host. The current lean presentation loads pinned DaisyUI, KaTeX and syntax-highlighting resources from public CDNs, so it is static-hostable but not an offline-contained bundle.
 
 ## What happens during export?
 
@@ -40,7 +40,7 @@ Snapshot does four things:
 1. Runs the notebook once in Pluto.
 2. Uses Pluto's dependency information to find cells affected by each `@bind` value.
 3. Lifts those reactive groups into Julia functions and compiles their typed IR to WasmGC through WasmTarget.jl.
-4. Checks the browser result against the real notebook before including the island.
+4. Runs the compiled result through the verification runtime and checks it against the real notebook output before including the island.
 
 ![The Snapshot.jl extraction, compilation, verification, and rendering pipeline](https://raw.githubusercontent.com/GroupTherapyOrg/snapshot-assets/main/announcement/snapshot-jl/2026-07/02-how-it-works.png)
 
@@ -48,11 +48,13 @@ If a group does not compile or does not reproduce the notebook result, it does n
 
 ## Some notebooks
 
-The documentation currently contains 16 lightly adapted Pluto featured notebooks. It reports coverage per notebook and links back to the `.jl` source.
+The documentation currently contains 16 notebooks: 14 lightly adapted Pluto featured notebooks and two Snapshot demos. It reports coverage per notebook and links back to the `.jl` source.
 
 ![The Snapshot.jl featured-notebook gallery with per-notebook interactive-cell counts](https://raw.githubusercontent.com/GroupTherapyOrg/snapshot-assets/main/announcement/snapshot-jl/2026-07/03-notebooks.png)
 
-Here is a chemistry notebook. Its three reactive cells compile, so the titration curve is recalculated and plotted in the browser as the inputs change.
+The lean collection shell includes a theme picker rather than a single light/dark switch. The screenshots below use different choices from the same exported pages; switching presentation does not rebuild the notebooks.
+
+In the current gallery build, this chemistry notebook has all three reactive cells compiled, so the titration curve is recalculated and plotted in the browser as the inputs change.
 
 [**Open Simulating titrations →**](https://grouptherapyorg.github.io/Snapshot.jl/notebooks/Titration/)
 
@@ -62,7 +64,7 @@ The output is still a notebook: Markdown, equations, Julia source, controls and 
 
 ![A live image-filtering notebook with a PlutoUI slider and WasmMakie output](https://raw.githubusercontent.com/GroupTherapyOrg/snapshot-assets/main/announcement/snapshot-jl/2026-07/05-convolution.png)
 
-The examples include larger reactive graphs too. This fractals notebook currently has 15 of 15 interactive cells compiled.
+The examples include larger reactive graphs too. In the current gallery build, this fractals notebook has 15 of 15 interactive cells compiled.
 
 [**Open Fractals and Fractal Art →**](https://grouptherapyorg.github.io/Snapshot.jl/notebooks/fractals/)
 
@@ -78,7 +80,7 @@ Snapshot.jl is an exporter, not a Julia interpreter in the browser. Its interact
 
 That subset already includes ordinary control flow, closures, arrays, strings, dictionaries, exceptions, a growing part of Base and several numerical packages. It is not all of Julia. Dynamic dispatch, runtime facilities, `ccall`-dependent paths and unsupported library internals can still stop an island from compiling.
 
-This boundary is visible on purpose. The gallery reports how many cells are interactive, and failed groups keep their build-time output. As WasmTarget.jl matures, Snapshot.jl can compile more notebooks without changing the notebook format or the hosting model.
+This boundary is visible on purpose. The gallery reports how many cells are interactive, and failed groups keep their build-time output. As WasmTarget.jl matures and Snapshot updates its pinned compiler dependency, rebuilding may compile more interactions without changing the notebook format or hosting model.
 
 ## Status and trust boundary
 
